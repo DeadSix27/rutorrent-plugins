@@ -32,8 +32,8 @@ $ sudo visudo
 ```
 
 Add this line at the bottom:
-```
-`www-data     ALL=(ALL)       NOPASSWD:/usr/local/bin/vpn_extip`
+```sudoers
+www-data     ALL=(ALL)       NOPASSWD:/usr/local/bin/vpn_extip
 ```
 
 Replace `www-data` with your php-user, it's `www-data` by default.
@@ -41,4 +41,4 @@ Replace `www-data` with your php-user, it's `www-data` by default.
 
 Aditionally you could add one for your user as well.
 ```
-`[YOUR_USERNAME]     ALL=(ALL)       NOPASSWD:/usr/local/bin/vpn_extip`
+[YOUR_USERNAME]     ALL=(ALL)       NOPASSWD:/usr/local/bin/vpn_extip
