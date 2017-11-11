@@ -9,8 +9,8 @@
 
   ![screenshot](/dist/ext_ip_screenshot.png?raw=true "screenshot")  
 
-	Show the external IP and Country code in the status bar
-	Unlike the other plugins this one uses "dig" and no website for the IP.
+	Show the external IP and Country code in the status bar  
+	Unlike the other plugins this one uses "dig" and no website for the IP.  
 	The country code is optional and uses https://freegeoip.net
 
   The netmask variant get's the external IP of a custom network namespace  
