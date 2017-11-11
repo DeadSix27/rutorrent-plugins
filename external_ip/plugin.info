@@ -1,0 +1,4 @@
+plugin.description: Shows external IP
+plugin.author: DeadSix
+plugin.version: 1.0
+rtorrent.need: 0
