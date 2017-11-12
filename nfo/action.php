@@ -57,9 +57,9 @@ function dos_format ($ibm_437, $swedishmagic = false) {
 			$s = str_replace("\366","\224",$s); // Code windows "ö" to dos.
 
 
-			$s = ereg_replace("([ -~])\305([ -~])", "\\1\217\\2", $s); // ?
-			$s = ereg_replace("([ -~])\304([ -~])", "\\1\216\\2", $s); // Ä
-			$s = ereg_replace("([ -~])\326([ -~])", "\\1\231\\2", $s); // Ö
+			$s = preg_replace("/([ -~])\x131([ -~])/","/\\x1\xD9\\x2/",$s); // ?
+			$s = preg_replace("/([ -~])\x130([ -~])/","/\\x1\xD8\\x2/",$s); // Ä
+			$s = preg_replace("/([ -~])\x146([ -~])/","/\\x1\xE7\\x2/",$s); // Ö
 
 			$s = str_replace("\311", "\220", $s); // É
 			$s = str_replace("\351", "\202", $s); // é
