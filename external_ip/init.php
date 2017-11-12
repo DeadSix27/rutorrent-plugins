@@ -4,7 +4,7 @@ eval( getPluginConf( $plugin["name"] ) );
 
 $fileGetContext = false;
 
-$ip = preg_replace( "/\r|\n/", "", shell_exec("dig +short myip.opendns.com @resolver1.opendns.com"));
+$ip = preg_replace( "/\r|\n/", "", shell_exec("myip"));
 
 $local_IP = preg_replace( "/\r|\n/", "", shell_exec("hostname -I | cut -d' ' -f1"));
 

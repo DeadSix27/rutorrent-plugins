@@ -1,0 +1,20 @@
+#!/bin/bash
+
+#copy this file into /usr/local/bin
+#then make it executeable: chmod +x /usr/local/bin/myip
+
+shopt -s nocasematch
+if [[ $1 == -v* ]] ; then
+	echo "myip 1.0"
+	exit
+fi
+
+
+IPCACHEFILE=/tmp/extip.cache
+
+if [ ! -f "$IPCACHEFILE" ] || test "`find $IPCACHEFILE -mmin +30`" ; then
+    dig +short myip.opendns.com @resolver1.opendns.com > "$IPCACHEFILE"
+    cat "$IPCACHEFILE"
+else
+	cat "$IPCACHEFILE"
+fi

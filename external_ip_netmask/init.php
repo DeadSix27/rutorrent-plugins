@@ -4,7 +4,7 @@ eval( getPluginConf( $plugin["name"] ) );
 
 $fileGetContext = false;
 
-$ip = preg_replace( "/\r|\n/", "", shell_exec("sudo vpn_extip"));
+$ip = preg_replace( "/\r|\n/", "", shell_exec("sudo myip_ns"));
 
 $local_IP = preg_replace( "/\r|\n/", "", shell_exec("hostname -I | cut -d' ' -f1"));
 

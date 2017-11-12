@@ -1,0 +1,26 @@
+#!/bin/bash
+
+#copy this file into /usr/local/bin
+#then:
+# sudo chown root:root /usr/local/bin/myip_ns
+# sudo chmod 4755 /usr/local/bin/myip_ns
+
+shopt -s nocasematch
+if [[ $1 == -v* ]] ; then
+	echo "myip_ns 1.0"
+	exit
+fi
+
+IPCACHEFILE=/tmp/extip_ns.cache
+
+NETWORKNAMESPACE=[MY_NAMESPACE] # CHANGE THIS TO YOUR NAMESPACE
+
+echo "YOU DID NOT EDIT myip_ns, please read README.md and edit this file" && exit 1 # REMOVE THIS ONCE YOU CHANGED THE LINE ABOVE
+
+if [ ! -f "$IPCACHEFILE" ] || test "`find $IPCACHEFILE -mmin +30`" ; then
+	sudo -v
+	sudo ip netns exec $NETWORKNAMESPACE dig +short myip.opendns.com @resolver1.opendns.com > "$IPCACHEFILE"
+    cat "$IPCACHEFILE"
+else
+	cat "$IPCACHEFILE"
+fi

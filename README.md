@@ -12,11 +12,12 @@
 	Show the external IP and Country code in the status bar  
 	Unlike the other plugins this one uses "dig" and no website for the IP.  
 	The country code is optional and uses https://freegeoip.net
+	Make sure to read the [README](/external_ip/README.md) for instructions.
 
 	The netmask variant get's the external IP of a custom network namespace  
 	(Network namespace as in `ip netns`)  
 	Useful if you run your rtorrent behind a namespace'd VPN.  
-	Make sure to read it's [README](/external_ip_netmask/README.md) for instructions.
+	Make sure to read the [README2](/external_ip_netmask/README.md) for instructions.
 
 - nfo
   Just a mirror of https://github.com/AceP1983/ruTorrent-plugins/tree/master/nfo
