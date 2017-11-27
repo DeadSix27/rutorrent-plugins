@@ -1,26 +1,45 @@
 #!/bin/bash
 
-#copy this file into /usr/local/bin
+#copy this file into /usr/bin
 #then:
-# sudo chown root:root /usr/local/bin/myip_ns
-# sudo chmod 4755 /usr/local/bin/myip_ns
+# sudo chown root:root /usr/bin/myip_ns
+# sudo chmod 4755 /usr/bin/myip_ns
 
-shopt -s nocasematch
-if [[ $1 == -v* ]] ; then
-	echo "myip_ns 1.0"
-	exit
+#Then add to sudoers by running sudo visudo:
+# www-data       ALL=NOPASSWD: /usr/bin/myip_ns
+# <userAccount>  ALL=NOPASSWD: /usr/bin/myip_ns
+
+# PLEASE NOTE, YOU MUST CALL THIS SCRIPT WITH "sudo" to make use of nopasswd
+
+if [[ $# -eq 0 ]] ; then
+    echo 'Syntax: myip_ns <namespace>/--version'
+    exit 1
+fi
+
+if [[ $1 == "-v"* ]]; then
+  echo "myip_ns 2.0"
+  exit 0
+fi
+
+checkNS=$((ip netns pids $1) 2>&1)
+
+NS="0"
+
+if [[ ! $checkNS == *"Cannot open network namespace"* ]]; then
+  NS=$1
 fi
 
 IPCACHEFILE=/tmp/extip_ns.cache
 
-NETWORKNAMESPACE=[MY_NAMESPACE] # CHANGE THIS TO YOUR NAMESPACE
-
-echo "YOU DID NOT EDIT myip_ns, please read README.md and edit this file" && exit 1 # REMOVE THIS ONCE YOU CHANGED THE LINE ABOVE
+if [ "$NS" == "0" ]; then
+        echo "namespace couldn't be found"
+        exit 1
+fi
 
 if [ ! -f "$IPCACHEFILE" ] || test "`find $IPCACHEFILE -mmin +30`" ; then
-	sudo -v
-	sudo ip netns exec $NETWORKNAMESPACE dig +short myip.opendns.com @resolver1.opendns.com > "$IPCACHEFILE"
-    cat "$IPCACHEFILE"
+        sudo -v
+        sudo ip netns exec $NS dig +short myip.opendns.com @resolver1.opendns.com  > "$IPCACHEFILE"
+        cat "$IPCACHEFILE"
 else
-	cat "$IPCACHEFILE"
+        cat "$IPCACHEFILE"
 fi
